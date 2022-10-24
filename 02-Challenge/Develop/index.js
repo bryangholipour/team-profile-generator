@@ -1,168 +1,145 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
+const Employee = require('./lib/Employee')
+const Engineer = require('./lib/Engineer')
+const Intern = require('./lib/Intern')
+const Manager = require('./lib/Manager')
 const ans = []
 let numLoops = 0;
-let fileName = `${ans.name}.json`
 
-const questions = ()=>{;
-inquirer
-    .prompt([
+function manager() {
+    inquirer.prompt([
         {
-            type: 'list',
-            name: 'typeOf',
-            message: 'What type of employee is this?',
-            choices: ['Manager','Engineer','Intern'],
+            type: 'input',
+            name: 'getName',
+            message: 'Enter the name of this project manager:',
         },
         {
             type: 'input',
-            name: 'user',
-            message: 'Give your first name:',
+            name: 'getId',
+            message: 'Enter the managers employee ID:'
         },
         {
             type: 'input',
-            name: 'employeeNumber',
-            message: 'Give your employee ID:',
+            name: 'getEmail',
+            message: 'Enter the managers email address:'
         },
         {
             type: 'input',
-            name: 'officeNumber',
-            message: 'Enter your office number:',
-        },
-        {
-            type: 'input',
-            name: 'email',
-            message: 'Give your email address:',
-        },
-        {
-            type: 'input',
-            name: 'github',
-            message: 'Give your github:',
+            name: 'getOfficeNumber',
+            message: 'Enter the managers office number:',
         },
         {
             type: 'list',
             name: 'keepGoing',
             message: 'would you to add another employee?',
-            choices: ['Add another employee','QUIT']
+            choices: ['Add another employee', 'QUIT']
         }
-    ]).then(ans=>{
-        if(ans.keepGoing==='Add another employee'){
-            numLoops++;
-            //calling the function again to restart the loop
-            questions();
-        } else {
-            //escape clause, if user chooses quit
-            let fileName = `${ans.description}.json`
-            fs.writeFile(`${ans.name}.html`, generateMD(ans), (err) => {
-                if (err) {
-                    throw err
-                    }
-                })
+    ]).then(ans => {
+        switch (ans.keepGoing) {
+            case "Add another employee":
+                employee();
+                break;
         }
     })
 }
+const employee = () => {
+    inquirer.prompt([
+            {
+                type: 'list',
+                name: 'getRole',
+                message: 'What type of employee is this?',
+                choices: ['Engineer', 'Intern'],
+            }
+         ]).then(ans => {
+            switch (ans.getRole) {
+                case "Engineer":
+                    engineer();
+                    break;
 
-    questions()
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    // ]).then(({user,keepgoing})=>{
-    //     ans.push(user);
-    //     if (keepgoing==='QUIT'){
-    //         fs.writeFile(`team.html`, generateMD(ans), (err) => {
-    //             if (err) {
-    //                 throw err
-    //                 }
-    //             })
-    //         } else {
-    //         questions();
-    //         }
-    //     })
-    // };
-    // questions(); 
-            // numLoops++;
-            
-       
-        
+                case ("Intern"):
+                    intern();
+                    break;
+            }
+         })
+        }
 
-        
-        
-//       ]).then(({user,keepGoing})=>{
-//     names.push(user);
-//     if(keepGoing==="no"){
-//         fs.writeFile(`roster.json`,JSON.stringify(names,null,4),(err)=>{
-//             if(err){
-//                 throw err
-//             }
-//             console.log("data saved!")
-//         })
-//     } else {
-//         addName();
-//     }
-//   })
-// };
+const engineer = () => {
+    inquirer.prompt([
+            {
+                type: 'input',
+                name: 'getName',
+                message: 'Enter this engineers name:',
+            },
+            {
+                type: 'input',
+                name: 'getId',
+                message: 'Enter this engineers ID:',
+            },
 
-// addName();
-    
-    
-    
-    
-    
-    
+            {
+                type: 'input',
+                name: 'getEmail',
+                message: 'Enter this engineers email address:',
+            },
+            {
+                type: 'input',
+                name: 'getGithub',
+                message: 'Enter this engineers github:',
+            },
+            {
+                type: 'list',
+                name: 'keepGoing',
+                message: 'would you to add another employee?',
+                choices: ['Add another employee', 'QUIT']
+            }
+        ]).then(ans => {
+            switch (ans.keepGoing) {
+                case "Add another employee":
+                    employee();
+                    break;
+            }
+        })
+    }
+const intern = () => {
+    inquirer.prompt([
+        {
+            type: 'input',
+            name: 'getName',
+            message: 'Enter this interns name:',
+        },
+        {
+            type: 'input',
+            name: 'getId',
+            message: 'Enter this interns ID:',
+        },
+
+        {
+            type: 'input',
+            name: 'getEmail',
+            message: 'Enter this interns email address:',
+        },
+        {
+            type: 'input',
+            name: 'getSchool',
+            message: 'Enter this interns school:',
+        },
+        {
+            type: 'list',
+            name: 'keepGoing',
+            message: 'would you to add another employee?',
+            choices: ['Add another employee', 'QUIT']
+        }
+    ]).then(ans => {
+        switch (ans.keepGoing) {
+            case "Add another employee":
+                employee();
+                break;
+        }
+    })
+}
     
 
 
 
-    // .then((answers) => {
-        // let fileName = `${answers.description}.json`
-
-        // fs.writeFile(`${answers.name}.html`, generateMD(answers), (err) => {
-        //     if (err) {
-        //         throw err
-        //         }
-        //     })
-            
- 
-
-var generateMD = (ans) => {
-    return (
-        ` <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Landing Page</title>
-        <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    
-    <nav>
-    <div class="nav-wrapper">
-      <a href="#" class="brand-logo center">My Team</a>
-      <ul id="nav-mobile" class="left hide-on-med-and-down">
-      </ul>
-    </div>
-  </nav>
-        
-    <div class="row">
-        <div class="col s12 m6">
-          <div class="card blue-grey darken-1">
-            <div class="card-content white-text">
-              <h2 class="card-title">${ans.user}</h2>
-              <h2>${ans.typeOf}</h2>
-              <p>Employee Number: ${ans.employeeNumber}</p>
-              <p>Office Number: ${ans.officeNumber}</p>
-            </div>
-            <div class="card-action">
-              <a href="${ans.email}">Email: ${ans.email}</a>
-              <a href="${ans.github}">Github: ${ans.github}</a>
-            </div>
-          </div>
-        </div>
-      </div>`
-    )}
+manager();
