@@ -4,6 +4,7 @@ const Employee = require('./lib/Employee')
 const Engineer = require('./lib/Engineer')
 const Intern = require('./lib/Intern')
 const Manager = require('./lib/Manager')
+const generateTeam = require('./util/generateHtml')
 const ans = []
 let numLoops = 0;
 
@@ -39,6 +40,10 @@ function manager() {
         switch (ans.keepGoing) {
             case "Add another employee":
                 employee();
+                break;
+
+            case "QUIT":
+                generateTeam();
                 break;
         }
     })
@@ -98,6 +103,10 @@ const engineer = () => {
                 case "Add another employee":
                     employee();
                     break;
+
+                case "QUIT":
+                    generateTeam();
+                    break;
             }
         })
     }
@@ -135,6 +144,10 @@ const intern = () => {
             case "Add another employee":
                 employee();
                 break;
+
+            case "QUIT":
+                generateTeam();
+                break;
         }
     })
 }
@@ -143,3 +156,5 @@ const intern = () => {
 
 
 manager();
+
+// generateTeam()
