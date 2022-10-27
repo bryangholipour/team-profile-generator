@@ -1,5 +1,7 @@
 # team-profile-generator
 
+**Unfortunately, I ran out of time on this assignment and was unable to fully complete it. Although the app seems to function properly, I didn't have time to diagnose the multiple failed tests. See walkthrough video, thanks.**
+
 ## User Story
 
 ```md

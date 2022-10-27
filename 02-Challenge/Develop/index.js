@@ -5,8 +5,9 @@ const Engineer = require('./lib/Engineer')
 const Intern = require('./lib/Intern')
 const Manager = require('./lib/Manager')
 const generateTeam = require('./util/generateHtml')
-const ans = []
-let numLoops = 0;
+const team = []
+let finalHtml = ""
+// let numLoops = 0;
 
 function manager() {
     inquirer.prompt([
@@ -37,14 +38,21 @@ function manager() {
             choices: ['Add another employee', 'QUIT']
         }
     ]).then(ans => {
+        const manager = new Manager(ans.getName, ans.getId, ans.getEmail, ans.getOfficeNumber) 
+        team.push(manager)
         switch (ans.keepGoing) {
             case "Add another employee":
                 employee();
                 break;
 
             case "QUIT":
-                generateTeam();
-                break;
+                const htmlString = generateTeam(team);
+                console.log(htmlString)
+                fs.writeFile('index.html', htmlString, (err)=>{
+                    if (err) console.log(err)
+                    console.log("html generated!")
+                })
+                break; 
         }
     })
 }
@@ -99,14 +107,21 @@ const engineer = () => {
                 choices: ['Add another employee', 'QUIT']
             }
         ]).then(ans => {
+            const engineer = new Engineer(ans.getName, ans.getId, ans.getEmail, ans.getGithub) 
+            team.push(engineer)
             switch (ans.keepGoing) {
                 case "Add another employee":
                     employee();
                     break;
 
                 case "QUIT":
-                    generateTeam();
-                    break;
+                    const htmlString = generateTeam(team);
+                    console.log(htmlString)
+                    fs.writeFile('index.html', htmlString, (err)=>{
+                        if (err) console.log(err)
+                        console.log("html generated!")
+                    })
+                break;
             }
         })
     }
@@ -140,21 +155,24 @@ const intern = () => {
             choices: ['Add another employee', 'QUIT']
         }
     ]).then(ans => {
+        const intern = new Intern(ans.getName, ans.getId, ans.getEmail, ans.getSchool) 
+        team.push(intern)
         switch (ans.keepGoing) {
             case "Add another employee":
                 employee();
                 break;
 
             case "QUIT":
-                generateTeam();
+                const htmlString = generateTeam(team);
+                console.log(htmlString)
+                fs.writeFile('index.html', htmlString, (err)=>{
+                    if (err) console.log(err)
+                    console.log("html generated!")
+                })
                 break;
         }
     })
 }
     
-
-
-
 manager();
 
-// generateTeam()
