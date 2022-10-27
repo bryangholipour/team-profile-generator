@@ -11,7 +11,7 @@ SO THAT I have quick access to their emails and GitHub profiles
 ```
 
 ## Walkthrough Video Link
-PUT LINK HERE
+https://drive.google.com/file/d/1WcvEGmbVC6CsashASgQsCN-U7kwTUUNg/view?usp=sharing
 
 ## Description
 
